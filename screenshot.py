@@ -3,6 +3,7 @@ import dropbox
 import sys
 import time
 import pyperclip
+import subprocess
 
 # part of the screen
 # bbox=(startX, startY, endX, endY))
@@ -26,3 +27,6 @@ fileUrl = metaData.url
 
 # copy file url to clipboard
 pyperclip.copy(fileUrl)
+
+# show notification when file is uploaded properly
+subprocess.Popen(['notify-send', "Url copied to clipboard!\n\r%s" % (fileUrl,)])
