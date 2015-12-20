@@ -2,6 +2,7 @@ import pyscreenshot as pyscreenshot
 import dropbox
 import sys
 import time
+import pyperclip
 
 # part of the screen
 # bbox=(startX, startY, endX, endY))
@@ -22,3 +23,6 @@ dbx.files_upload(fileToUpload, uploadFileName)
 # get url of uploaded file
 metaData = dbx.sharing_create_shared_link(uploadFileName)
 fileUrl = metaData.url
+
+# copy file url to clipboard
+pyperclip.copy(fileUrl)
