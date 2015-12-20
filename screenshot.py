@@ -1,5 +1,7 @@
 import pyscreenshot as pyscreenshot
 import dropbox
+import sys
+import time
 
 # part of the screen
 # bbox=(startX, startY, endX, endY))
@@ -12,8 +14,11 @@ pyscreenshot.grab_to_file("printscreen.png")
 # authenticate dropbox with access token
 dbx = dropbox.Dropbox("access_token")
 # read the file
-file = open("printscreen.png", "rb").read()
+openFile = open("printscreen.png", "rb")
+fileToUpload = openFile.read()
 # upload the file
-dbx.files_upload(file, '/printscreenTIMESTAMP3.png')
+uploadFileName = "/printscreen%s.png" % (time.time(),)
+dbx.files_upload(fileToUpload, uploadFileName)
 # get url of uploaded file
-fileUrl = dbx.sharing_create_shared_link("/printscreenTIMESTAMP3.png")
+metaData = dbx.sharing_create_shared_link(uploadFileName)
+fileUrl = metaData.url
