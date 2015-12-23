@@ -10,10 +10,10 @@ appPath = os.path.dirname(os.path.realpath(__file__))
 config = conf.ConfigItems(appPath, "config")
 config.get("PathInfo", "ScreenshotPath")
 
-fullFilePath = '/'.join([config.get("PathInfo", "ScreenshotPath"), config.get("PathInfo", "ScreenshotFilename")])
+filePath = '/'.join([config.get("PathInfo", "ScreenshotPath"), config.get("PathInfo", "ScreenshotFilename")])
 
 # grab selected screen with SCROT backend
-os.system("scrot -s %s" % (fullFilePath,))
+os.system("scrot -s %s" % (filePath,))
 
 # authenticate dropbox with access token
 dbx = dropbox.Dropbox(config.get("Dropbox", "AccessToken"))
@@ -22,9 +22,9 @@ fileExists = False
 counter = 0
 fileToUpload = False
 while fileExists is False and counter < 5:
-    if os.path.isfile(fullFilePath) is True:
+    if os.path.isfile(filePath) is True:
         # read the file
-        openFile = open(fullFilePath, "rb")
+        openFile = open(filePath, "rb")
         fileToUpload = openFile.read()
         fileExists = True
     else:
@@ -42,7 +42,7 @@ fileUrl = metaData.url
 pyperclip.copy(fileUrl)
 
 # delete printscreenfile
-os.system("rm -rf %s" % (fullFilePath,))
+os.system("rm -rf %s" % (filePath,))
 
 # show notification when file is uploaded properly
 subprocess.Popen(['notify-send', "Url copied to clipboard!\n\r%s" % (fileUrl,)])
