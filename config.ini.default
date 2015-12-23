@@ -1,0 +1,6 @@
+[PathInfo]
+ScreenshotPath=/absolute/path/to/image/folder
+ScreenshotFilename=image.png
+
+[Dropbox]
+AccessToken=accessTokenForDropboxAPI
