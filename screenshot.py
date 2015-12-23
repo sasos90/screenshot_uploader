@@ -1,29 +1,22 @@
-import pyscreenshot
 import dropbox
 import sys
 import time
 import pyperclip
 import subprocess
 import os
-import os.path
-import ConfigParser
+import config_loader.config as conf
 
-# load config file
-Config = ConfigParser.ConfigParser()
-Config.read("%s/config.ini" % (os.path.dirname(os.path.realpath(__file__)),))
+appPath = os.path.dirname(os.path.realpath(__file__))
+config = conf.ConfigItems(appPath, "config")
+config.get("PathInfo", "ScreenshotPath")
 
-# get values from config file
-_SCREENSHOT_PATH = Config.get("PathInfo", "ScreenshotPath")
-_SCREENSHOT_FILENAME = Config.get("PathInfo", "ScreenshotFilename")
-_ACCESS_TOKEN = Config.get("Dropbox", "AccessToken")
-
-fullFilePath = '/'.join([_SCREENSHOT_PATH, _SCREENSHOT_FILENAME])
+fullFilePath = '/'.join([config.get("PathInfo", "ScreenshotPath"), config.get("PathInfo", "ScreenshotFilename")])
 
 # grab selected screen with SCROT backend
-os.system("scrot -s %s" % (fullFilePath,));
+os.system("scrot -s %s" % (fullFilePath,))
 
 # authenticate dropbox with access token
-dbx = dropbox.Dropbox(_ACCESS_TOKEN)
+dbx = dropbox.Dropbox(config.get("Dropbox", "AccessToken"))
 
 fileExists = False
 counter = 0
