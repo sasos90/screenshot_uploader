@@ -1,9 +1,10 @@
-import pyscreenshot as pyscreenshot
+import pyscreenshot
 import dropbox
 import sys
 import time
 import pyperclip
 import subprocess
+import os
 
 # part of the screen
 # bbox=(startX, startY, endX, endY))
@@ -11,10 +12,13 @@ import subprocess
 # im.save("printscreen.png", "PNG")
 
 # grab full printscreen and save it to file
-pyscreenshot.grab_to_file("printscreen.png")
+# pyscreenshot.grab_to_file("printscreen.png")
+
+# grab selected screen with SCROT backend
+os.system("scrot -s printscreen.png");
 
 # authenticate dropbox with access token
-dbx = dropbox.Dropbox("access_token")
+dbx = dropbox.Dropbox("4I36gE2ePRAAAAAAAAAAH_aIfXX0hvrFEA9HyuSGyrOHuUQo281LJz9rLiiqmsDm")
 # read the file
 openFile = open("printscreen.png", "rb")
 fileToUpload = openFile.read()
@@ -27,6 +31,9 @@ fileUrl = metaData.url
 
 # copy file url to clipboard
 pyperclip.copy(fileUrl)
+
+# delete printscreenfile
+os.system("rm -rf printscreen.png")
 
 # show notification when file is uploaded properly
 subprocess.Popen(['notify-send', "Url copied to clipboard!\n\r%s" % (fileUrl,)])
