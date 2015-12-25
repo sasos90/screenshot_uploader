@@ -8,14 +8,13 @@ import config_loader.config as conf
 
 appPath = os.path.dirname(os.path.realpath(__file__))
 config = conf.ConfigItems(appPath, "config")
-config.get("PathInfo", "ScreenshotPath")
 
-filePath = '/'.join([config.get("PathInfo", "ScreenshotPath"), config.get("PathInfo", "ScreenshotFilename")])
+filePath = '/'.join([config.get("Screenshot", "Path"), config.get("Screenshot", "Filename")])
 
 # grab selected screen with SCROT backend
 # need delay to properly run the scrot
 time.sleep(0.01)
-os.system("scrot -q 50 -s %s" % (filePath,))
+os.system("scrot -q %s -s %s" % (config.get("Screenshot", "Quality"), filePath,))
 
 # authenticate dropbox with access token
 dbx = dropbox.Dropbox(config.get("Dropbox", "AccessToken"))
