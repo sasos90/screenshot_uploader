@@ -15,7 +15,7 @@ filePath = '/'.join([config.get("PathInfo", "ScreenshotPath"), config.get("PathI
 # grab selected screen with SCROT backend
 # need delay to properly run the scrot
 time.sleep(0.01)
-os.system("scrot -s %s" % (filePath,))
+os.system("scrot -q 50 -s %s" % (filePath,))
 
 # authenticate dropbox with access token
 dbx = dropbox.Dropbox(config.get("Dropbox", "AccessToken"))
