@@ -20,18 +20,9 @@ os.system("scrot -s %s" % (filePath,))
 # authenticate dropbox with access token
 dbx = dropbox.Dropbox(config.get("Dropbox", "AccessToken"))
 
-fileExists = False
-counter = 0
-fileToUpload = False
-while fileExists is False and counter < 5:
-    if os.path.isfile(filePath) is True:
-        # read the file
-        openFile = open(filePath, "rb")
-        fileToUpload = openFile.read()
-        fileExists = True
-    else:
-        counter += 1
-        time.sleep(0.5)
+# select the file to upload
+openFile = open(filePath, "rb")
+fileToUpload = openFile.read()
 
 # upload the file
 uploadFileName = "/printscreen%s.png" % (time.time(),)
