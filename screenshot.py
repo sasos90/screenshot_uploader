@@ -6,8 +6,16 @@ import subprocess
 import os
 # my packages
 import config_loader.config as conf
+import logger.logger as logger
 
+# app init
 appPath = os.path.dirname(os.path.realpath(__file__))
+
+# logger init
+log = logger.Logger(appPath)
+log.debug("Logger initialized")
+
+# config init
 config = conf.ConfigItems(appPath, "config")
 
 filePath = '/'.join([config.get("Screenshot", "Path"), config.get("Screenshot", "Filename")])
