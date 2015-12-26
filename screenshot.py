@@ -47,3 +47,5 @@ os.system("rm -rf %s" % (filePath,))
 
 # show notification when file is uploaded properly
 subprocess.Popen(['notify-send', "Url copied to clipboard!\n\r%s" % (fileUrl,)])
+
+log.debug("Task completed")
