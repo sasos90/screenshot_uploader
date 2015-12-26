@@ -5,8 +5,8 @@ import pyperclip
 import subprocess
 import os
 # my packages
-import config_loader.config as conf
-import logger.logger as logger
+import vendor.config_loader.config as conf
+import vendor.logger as logger
 
 # app init
 appPath = os.path.dirname(os.path.realpath(__file__))
